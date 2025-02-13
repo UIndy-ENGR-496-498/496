@@ -1,0 +1,12 @@
+# Ignore ROS 2 build artifacts
+build/
+install/
+log/
+launch/
+record/
+*.jpg
+*.pdf
+*.bag
+launch_slam.sh
+cd ~/496/ros_ws
+rm -rf .git 
