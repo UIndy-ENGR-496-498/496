@@ -8,5 +8,3 @@ record/
 *.pdf
 *.bag
 launch_slam.sh
-cd ~/496/ros_ws
-rm -rf .git 
