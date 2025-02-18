@@ -14,7 +14,7 @@ class ArduinoImuNode(Node):
         super().__init__('arduino_imu_node')
 
         # Adjust to match your actual serial port and baud
-        port = '/dev/ttyACM0'  # or '/dev/ttyUSB0', etc.
+        port = '/dev/ttyACM1'  # or '/dev/ttyUSB0', etc.
         baud = 19200
 
         # Try opening the serial port
