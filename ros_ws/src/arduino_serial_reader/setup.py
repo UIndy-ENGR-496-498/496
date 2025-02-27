@@ -1,4 +1,5 @@
 from setuptools import setup
+from setuptools import setup
 
 package_name = 'arduino_serial_reader'
 
@@ -15,10 +16,9 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            # The left-hand string is how you’ll call it with ros2 run:
-            #   ros2 run arduino_serial_reader serial_reader_node
-            # The right-hand side must point to: <python_package>.<script_file>:<function_name>
             'serial_reader_node = arduino_serial_reader.serial_reader_node:main',
         ],
     },
+    data_files=[('share/' + package_name, ['package.xml'])],  # <== Add this line
 )
+
