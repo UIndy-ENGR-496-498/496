@@ -9,7 +9,7 @@ class GPSListener(Node):
         super().__init__('gps_listener')
         
         # Adjust baudrate if your GPS uses something other than 9600
-        self.serial_port = serial.Serial('/dev/ttyACM0', baudrate=9600, timeout=1)
+        self.serial_port = serial.Serial('/dev/ttyGPS', baudrate=9600, timeout=1)
 
         # Create a publisher to publish GPS data
         self.publisher_ = self.create_publisher(String, 'gps_data', 10)
