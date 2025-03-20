@@ -1,0 +1,1 @@
+/home/robot/496/ros_ws/src/build/asio_cmake_module/ament_cmake_core/asio_cmake_moduleConfig-version.cmake

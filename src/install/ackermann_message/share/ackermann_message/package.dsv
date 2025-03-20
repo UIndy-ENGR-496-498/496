@@ -1,0 +1,9 @@
+source;share/ackermann_message/hook/pythonpath.ps1
+source;share/ackermann_message/hook/pythonpath.dsv
+source;share/ackermann_message/hook/pythonpath.sh
+source;share/ackermann_message/hook/ament_prefix_path.ps1
+source;share/ackermann_message/hook/ament_prefix_path.dsv
+source;share/ackermann_message/hook/ament_prefix_path.sh
+source;../../build/ackermann_message/share/ackermann_message/hook/pythonpath_develop.ps1
+source;../../build/ackermann_message/share/ackermann_message/hook/pythonpath_develop.dsv
+source;../../build/ackermann_message/share/ackermann_message/hook/pythonpath_develop.sh

@@ -1,0 +1,9 @@
+source;share/imu_publisher/hook/path.ps1
+source;share/imu_publisher/hook/path.dsv
+source;share/imu_publisher/hook/path.sh
+source;share/imu_publisher/hook/pythonpath.ps1
+source;share/imu_publisher/hook/pythonpath.dsv
+source;share/imu_publisher/hook/pythonpath.sh
+source;share/imu_publisher/hook/pythonscriptspath.ps1
+source;share/imu_publisher/hook/pythonscriptspath.dsv
+source;share/imu_publisher/hook/pythonscriptspath.sh
