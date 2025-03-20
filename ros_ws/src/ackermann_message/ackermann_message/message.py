@@ -1,3 +1,4 @@
+
 import rclpy
 import time 
 from rclpy.node import Node
@@ -36,19 +37,19 @@ class AckermannPublisher(Node):
            
         ## Drive Course
         elif (20 < self.i < 32): # DRIVE STRAIGHT
-            msg.drive.steering_angle = -0.0325
+            msg.drive.steering_angle = -0.01
             msg.drive.speed = 3.0
             msg.drive.acceleration = 0.005
             print("Drive Forward 6.75 meters (22 ft)")
             
         elif (32 <= self.i < 38): #turning left
-            msg.drive.steering_angle = 0.165
+            msg.drive.steering_angle = 0.17
             msg.drive.speed = 3.0
             msg.drive.acceleration = 0.5
             print("Turn Left")
             
         elif (38 <= self.i < 60): #long drive straight
-            msg.drive.steering_angle = -0.01
+            msg.drive.steering_angle = -0.015
             msg.drive.speed = 3.0  
             msg.drive.acceleration = 0.5
             print("Drive Forward 15m (49.5 ft)")
@@ -66,18 +67,18 @@ class AckermannPublisher(Node):
             print("Drive Forward 11.25m (37 ft)")
 
         elif (81 <= self.i < 87): #turning left
-            msg.drive.steering_angle = 0.115
+            msg.drive.steering_angle = 0.14
             msg.drive.speed = 3.0
             msg.drive.acceleration = 0.5
             print("Turn Left")
 
         elif (87 <= self.i < 111): #long drive straight
             msg.drive.steering_angle = 0.0
-            msg.drive.speed = 3.0  
+            msg.drive.speed = 2.8
             msg.drive.acceleration = 0.5
             print("Drive Forward 15m (49.5 ft)")
         elif (111 <= self.i < 117): #turning left
-            msg.drive.steering_angle = 0.16
+            msg.drive.steering_angle = 0.13
             msg.drive.speed = 3.0
             msg.drive.acceleration = 0.5
             print("Turn Left")
