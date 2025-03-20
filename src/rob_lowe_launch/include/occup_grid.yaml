@@ -1,0 +1,17 @@
+# Path to the map image file
+image: /496/ros_ws/src/rob_lowe_launch/include/course.pgm
+
+# Resolution of the map, in meters/pixel
+resolution: 0.05 
+
+# Origin of the map, in the map frame [x, y, yaw]
+origin: [-50.0, -50.0, 0.0]
+
+# Threshold for considering a cell occupied (0-1)
+occupied_thresh: 0.65
+
+# Threshold for considering a cell free (0-1) 
+free_thresh: 0.196
+
+# Whether to negate the image (0=no, 1=yes)
+negate: 0

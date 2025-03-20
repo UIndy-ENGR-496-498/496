@@ -1,0 +1,9 @@
+source;share/atgm336h5n3x/hook/pythonpath.ps1
+source;share/atgm336h5n3x/hook/pythonpath.dsv
+source;share/atgm336h5n3x/hook/pythonpath.sh
+source;share/atgm336h5n3x/hook/ament_prefix_path.ps1
+source;share/atgm336h5n3x/hook/ament_prefix_path.dsv
+source;share/atgm336h5n3x/hook/ament_prefix_path.sh
+source;../../build/atgm336h5n3x/share/atgm336h5n3x/hook/pythonpath_develop.ps1
+source;../../build/atgm336h5n3x/share/atgm336h5n3x/hook/pythonpath_develop.dsv
+source;../../build/atgm336h5n3x/share/atgm336h5n3x/hook/pythonpath_develop.sh
