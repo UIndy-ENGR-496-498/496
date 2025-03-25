@@ -8,7 +8,7 @@ RUN apt-get update && apt install -y \
 
 
 RUN apt-get update && apt-get install -y  \
-#	nano \
+	nano \
 	vim \
 	python3-pandas \
 	python3-opencv  \
@@ -25,6 +25,7 @@ RUN apt-get update && apt-get install -y \
 	ros-humble-nmea-msgs \
 	ros-humble-slam-toolbox \
 	ros-humble-robot-localization \
+ 	ros-humble-tf-transformations \
 	libqt5serialport5-dev \
 	&& rm -rf /var/lib/apt/lists/*
 
