@@ -6,6 +6,7 @@
 
 #no Camera
 
-docker run -it --rm --net=host --device=/dev/ttyVESC --device=/dev/ttyIMU --device=/dev/ttyGPS -v /dev/shm:/dev/shm -v ~/496:/496 avc/devel
+#docker run -it --rm --net=host --device=/dev/ttyVESC --device=/dev/ttyIMU --device=/dev/ttyGPS -v /dev/shm:/dev/shm -v ~/496:/496 avc/devel
 
 
+docker run -it --rm --net=host --device=/dev/ttyVESC --device=/dev/ttyIMU --device=/dev/ttyGPS -v /dev/shm:/dev/shm -v ~/496:/496 avc/devel2
