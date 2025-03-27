@@ -21,7 +21,7 @@ class ArduinoImuNode(Node):
         try:
             self.ser = serial.Serial(port, baudrate=baud, timeout=0.1)
             self.get_logger().info(f"Connected to {port} at {baud} baud.")
-            self.ser.reset_input_buffer()  # Flush buffer to remove any garbage data
+            self.ser.reset_input_buffer()
         except serial.SerialException as e:
             self.get_logger().error(f"Failed to open serial port {port}: {e}")
             raise SystemExit(1)
@@ -36,30 +36,22 @@ class ArduinoImuNode(Node):
         """
         Periodically read a line from the Arduino, parse it, and publish an Imu message.
         """
-        # Read raw bytes
         line_bytes = self.ser.readline()
         line = line_bytes.decode('utf-8', errors='ignore').strip()
 
-        # Print raw data for debugging
         self.get_logger().info(f"Raw data received: {line}")
 
-        if not line:
+        if not line or "AccError" in line or "GyroError" in line:
             return
 
-        # Skip calibration lines (anything with "AccError" or "GyroError")
-        if "AccError" in line or "GyroError" in line:
-            return
-
-        # Expect lines like "12.34/56.78/90.12"
         parts = line.split('/')
-        if len(parts) != 3:
+        if len(parts) != 6:
             self.get_logger().warn(f"Unexpected IMU data format: {line}")
             return
 
         try:
-            roll_deg = float(parts[0])
-            pitch_deg = float(parts[1])
-            yaw_deg = float(parts[2])
+            roll_deg, pitch_deg, yaw_deg = map(float, parts[0:3])
+            acc_x, acc_y, acc_z = map(float, parts[3:6])
         except ValueError:
             self.get_logger().warn(f"Could not convert to float: {line}")
             return
@@ -72,15 +64,21 @@ class ArduinoImuNode(Node):
         # Convert RPY -> quaternion
         q = tf_transformations.quaternion_from_euler(roll_rad, pitch_rad, yaw_rad)
 
-        # Create and fill the Imu message
         imu_msg = Imu()
         imu_msg.orientation.x = q[0]
         imu_msg.orientation.y = q[1]
         imu_msg.orientation.z = q[2]
         imu_msg.orientation.w = q[3]
 
+        # Populate linear acceleration
+        imu_msg.linear_acceleration.x = acc_x
+        imu_msg.linear_acceleration.y = acc_y
+        imu_msg.linear_acceleration.z = acc_z
+
         # Publish the message
         self.imu_pub.publish(imu_msg)
+
+        self.get_logger().info(f"Published IMU orientation and acceleration.")
 
 
 def main(args=None):
@@ -93,3 +91,4 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
+
