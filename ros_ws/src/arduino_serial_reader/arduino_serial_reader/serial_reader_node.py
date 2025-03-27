@@ -14,7 +14,7 @@ class ArduinoImuNode(Node):
         super().__init__('arduino_imu_node')
 
         # Adjust to match your actual serial port and baud
-        port = '/dev/ttyIMU'  # or '/dev/ttyUSB0', etc.
+        port = '/dev/ttyIMU'  # Adjust based on your system
         baud = 19200
 
         # Try opening the serial port
@@ -50,16 +50,16 @@ class ArduinoImuNode(Node):
         if "AccError" in line or "GyroError" in line:
             return
 
-        # Expect lines like "12.34/56.78/90.12"
+        # Expect lines like "roll/pitch/yaw/ax/ay/az/gx/gy/gz"
         parts = line.split('/')
-        if len(parts) != 3:
+        if len(parts) != 9:
             self.get_logger().warn(f"Unexpected IMU data format: {line}")
             return
 
         try:
-            roll_deg = float(parts[0])
-            pitch_deg = float(parts[1])
-            yaw_deg = float(parts[2])
+            roll_deg, pitch_deg, yaw_deg = map(float, parts[:3])  # Orientation
+            ax, ay, az = map(float, parts[3:6])  # Acceleration (m/s²)
+            gx, gy, gz = map(float, parts[6:])  # Angular velocity (deg/s)
         except ValueError:
             self.get_logger().warn(f"Could not convert to float: {line}")
             return
@@ -68,6 +68,11 @@ class ArduinoImuNode(Node):
         roll_rad = math.radians(roll_deg)
         pitch_rad = math.radians(pitch_deg)
         yaw_rad = math.radians(yaw_deg)
+
+        # Convert degrees/sec to radians/sec for angular velocity
+        gx_rad = math.radians(gx)
+        gy_rad = math.radians(gy)
+        gz_rad = math.radians(gz)
 
         # Convert RPY -> quaternion
         q = tf_transformations.quaternion_from_euler(roll_rad, pitch_rad, yaw_rad)
@@ -78,6 +83,16 @@ class ArduinoImuNode(Node):
         imu_msg.orientation.y = q[1]
         imu_msg.orientation.z = q[2]
         imu_msg.orientation.w = q[3]
+
+        # Fill angular velocity (rad/s)
+        imu_msg.angular_velocity.x = gx_rad
+        imu_msg.angular_velocity.y = gy_rad
+        imu_msg.angular_velocity.z = gz_rad
+
+        # Fill linear acceleration (m/s²)
+        imu_msg.linear_acceleration.x = ax
+        imu_msg.linear_acceleration.y = ay
+        imu_msg.linear_acceleration.z = az
 
         # Publish the message
         self.imu_pub.publish(imu_msg)
